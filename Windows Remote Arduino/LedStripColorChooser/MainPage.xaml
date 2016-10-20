@@ -1,0 +1,25 @@
+﻿<Page
+	x:Class="LedStripColorChooser.MainPage"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="using:LedStripColorChooser"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:helpers="using:LedStripColorChooser.Helpers"
+	xmlns:cc="using:ColorPicker"
+	mc:Ignorable="d">
+
+	<Page.Resources>
+		<helpers:BoolToVisibilityConverter x:Key="B2V" />
+	</Page.Resources>
+
+	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+		<StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="{Binding IsConnected, Converter={StaticResource B2V}, ConverterParameter=true}">
+			<TextBlock TextAlignment="Center">Connecting...</TextBlock>
+			<ProgressRing IsEnabled="True" Foreground="{ThemeResource ProgressBarForegroundThemeBrush}" IsActive="True" />
+		</StackPanel>
+		<Grid Visibility="{Binding IsConnected, Converter={StaticResource B2V}}">
+			<cc:ColorPicker SelectedColorChanged="UpdateColor" RedValue="{Binding Red}" BlueValue="{Binding Blue}" GreenValue="{Binding Green}" />
+		</Grid>
+	</Grid>
+</Page>
